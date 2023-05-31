@@ -3,13 +3,15 @@ package Pizza;
 import java.util.List;
 
 public class Pizza {
+    private int id;
     private String name;
     private List<String> components;
     private int spicy;
     private String size;
     private double price;
 
-    public Pizza(String name, List<String> components, int spicy, String size, double price) {
+    public Pizza(int id, String name, List<String> components, int spicy, String size, double price) {
+        this.id = id;
         this.name = name;
         this.components = components;
         this.spicy = spicy;
@@ -47,5 +49,33 @@ public class Pizza {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Nr:" + id +
+                ", Nazwa: '" + name + '\'' +
+                ", Składniki: " + components +
+                ", Ostrość: " + spicy +
+                ", rozmiar: " + size + '\'' +
+                ", cena: " + price +
+                '\n';
     }
 }
