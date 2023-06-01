@@ -1,18 +1,19 @@
-package Panel;
+package Containers;
 
-import Interfaces.IPanel;
-import Pizza.*;
+import Pizza.Pizza;
+import Pizza.PizzaCapriciosa;
+import Pizza.PizzaPepperoni;
+import Pizza.PizzaVege;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
-public class PizzaPanel implements IPanel {
+public class PizzaContainer {
+
     private List<Pizza> pizzas = new ArrayList<>();
-    private int nextId = 10;
-
-    public PizzaPanel() {
+    
+    public PizzaContainer() {
         pizzas.add(new PizzaPepperoni(1,"Pepperoni", Arrays.asList("sos", "ser", "papryka", "salami"), 2,"mała",30));
         pizzas.add(new PizzaPepperoni(2,"Pepperoni", Arrays.asList("sos", "ser", "papryka", "salami"), 2,"średnia",35));
         pizzas.add(new PizzaPepperoni(3,"Pepperoni", Arrays.asList("sos", "ser", "papryka", "salami"), 2,"duża",40));
@@ -24,7 +25,7 @@ public class PizzaPanel implements IPanel {
         pizzas.add(new PizzaVege(9,"Vege", Arrays.asList("sos", "ser", "szpinak", "pomidor"), 0,"duża",35));
     }
 
-    public Pizza getPizzaById(int id) {
+    public Pizza FindPizzaById(int id) {
         for (Pizza pizza : pizzas) {
             if (pizza.getId() == id) {
                 return pizza;
@@ -33,43 +34,22 @@ public class PizzaPanel implements IPanel {
         return null;
     }
 
-    public void Show() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Podaj nazwę nowej pizzy:");
-        String name = scanner.nextLine();
-
-        System.out.println("Podaj składniki nowej pizzy (oddzielone przecinkami):");
-        String ingredientsInput = scanner.nextLine();
-        List<String> ingredients = Arrays.asList(ingredientsInput.split(","));
-
-        System.out.println("Podaj poziom ostrości nowej pizzy (0-2):");
-        int spiciness = scanner.nextInt();
-
-        scanner.nextLine();
-
-        System.out.println("Podaj rozmiar nowej pizzy:");
-        String size = scanner.nextLine();
-
-        System.out.println("Podaj cenę nowej pizzy:");
-        double price = scanner.nextDouble();
-
-        Pizza newPizza = new Pizza(nextId, name, ingredients, spiciness, size, price);
-        pizzas.add(newPizza);
-
-        System.out.println("Dodano nową pizzę do menu!");
-        System.out.println(this.ShowMenu());
-
-        nextId++;
+    public void AddNewPizza(Pizza pizza){
+        pizzas.add(pizza);
+        System.out.println("Dodano nową pizzę");
     }
 
-    public String ShowMenu() {
+    public void ShowAllPizzas() {
         StringBuilder menuBuilder = new StringBuilder();
         menuBuilder.append("Menu:\n");
         for (Pizza pizza : pizzas) {
             menuBuilder.append(pizza.toString());
             menuBuilder.append("\n");
         }
-        return menuBuilder.toString();
+        System.out.println(menuBuilder.toString());
+    }
+
+    public int PizzasCount(){
+        return pizzas.size();
     }
 }

@@ -1,15 +1,17 @@
 package Cart;
 
+import Enums.DeliveryType;
 import Pizza.Pizza;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
     private List<Pizza> pizzaList = new ArrayList<>();
-    private double deliveryCost;
+    private int deliveryCost;
 
-    public Cart(boolean hasDelivery) {
-        deliveryCost = hasDelivery ? 3.0 : 0.0;
+    public Cart(DeliveryType deliveryType) {
+        if (deliveryType == DeliveryType.FOR_DELIVERY) deliveryCost = 3;
+        else deliveryCost = 0;
     }
 
     public void addPizza(Pizza pizza) {

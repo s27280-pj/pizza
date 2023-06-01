@@ -1,8 +1,8 @@
 package Order;
 
+import Enums.DeliveryType;
 import Interfaces.IOrder;
-import Panel.PanelManager;
-import Panel.PizzaPanel;
+import Managers.DataManager;
 
 import java.util.Scanner;
 import Cart.Cart;
@@ -12,30 +12,28 @@ public class OnsiteIOrder implements IOrder {
 
     @Override
     public void MakeOrder() {
-        Scanner s = new Scanner(System.in);
-
-        Cart cart = new Cart(false);
-
+        Scanner scanner = new Scanner(System.in);
+        Cart cart = new Cart(DeliveryType.ON_SITE);
 
         boolean ordering = true;
 
         while (ordering) {
             System.out.println("Wybierz swoją pizzę: ");
-            System.out.println(PanelManager.getPizzaPanel().ShowMenu());
+            DataManager.getPizzaContainer().ShowAllPizzas();
 
             System.out.println("Podaj ID wybranej pizzy: ");
-            int chosen = s.nextInt();
+            Pizza chosenPizza = DataManager.getPizzaContainer().FindPizzaById(scanner.nextInt());
 
-            Pizza chosenPizza = PanelManager.getPizzaPanel().getPizzaById(chosen);
             if (chosenPizza != null) {
                 cart.addPizza(chosenPizza);
                 System.out.println("Pizza " + chosenPizza.getName() + " dodana do koszyka!");
-            } else {
+            }
+            else {
                 System.out.println("Nie ma pizzy o takim ID.");
             }
 
             System.out.println("Czy chcesz zamówić kolejną pizzę? (tak/nie)");
-            String nextOrder = s.next().toLowerCase();
+            String nextOrder = scanner.next().toLowerCase();
             ordering = nextOrder.equals("tak");
         }
 

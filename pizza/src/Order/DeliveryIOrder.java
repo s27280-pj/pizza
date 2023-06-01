@@ -3,24 +3,24 @@ package Order;
 import java.util.Random;
 import java.util.Scanner;
 import Cart.Cart;
+import Enums.DeliveryType;
 import Interfaces.IOrder;
-import Panel.PanelManager;
-import Panel.PizzaPanel;
+import Managers.DataManager;
 import Pizza.*;
 
 public class DeliveryIOrder implements IOrder {
 
     @Override
     public void MakeOrder() {
-        Scanner s = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        Cart cart = new Cart(true);
+        Cart cart = new Cart(DeliveryType.FOR_DELIVERY);
 
         System.out.println("Podaj adres dostawy:");
-        String address = s.nextLine();
+        String address = scanner.nextLine();
 
         System.out.println("Podaj numer telefonu:");
-        String phoneNumber = s.nextLine();
+        String phoneNumber = scanner.nextLine();
 
         System.out.println("Koszt dostawy to 3 zł.");
         try {
@@ -33,12 +33,11 @@ public class DeliveryIOrder implements IOrder {
 
         while (ordering) {
             System.out.println("Wybierz swoją pizzę: ");
-            System.out.println(PanelManager.getPizzaPanel().ShowMenu());
+            DataManager.getPizzaContainer().ShowAllPizzas();
 
             System.out.println("Podaj ID wybranej pizzy: ");
-            int chosen = s.nextInt();
+            Pizza chosenPizza = DataManager.getPizzaContainer().FindPizzaById(scanner.nextInt());
 
-            Pizza chosenPizza = PanelManager.getPizzaPanel().getPizzaById(chosen);
             if (chosenPizza != null) {
                 cart.addPizza(chosenPizza);
                 System.out.println("Pizza " + chosenPizza.getName() + " dodana do koszyka!");
@@ -47,7 +46,7 @@ public class DeliveryIOrder implements IOrder {
             }
 
             System.out.println("Czy chcesz zamówić kolejną pizzę? (tak/nie)");
-            String nextOrder = s.next().toLowerCase();
+            String nextOrder = scanner.next().toLowerCase();
             ordering = nextOrder.equals("tak");
         }
 
