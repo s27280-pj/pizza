@@ -1,15 +1,18 @@
-package Pizza;
+package Panel;
+
+import Interfaces.IPanel;
+import Pizza.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class PizzaMenu {
+public class PizzaPanel implements IPanel {
     private List<Pizza> pizzas = new ArrayList<>();
     private int nextId = 10;
 
-    public PizzaMenu() {
+    public PizzaPanel() {
         pizzas.add(new PizzaPepperoni(1,"Pepperoni", Arrays.asList("sos", "ser", "papryka", "salami"), 2,"mała",30));
         pizzas.add(new PizzaPepperoni(2,"Pepperoni", Arrays.asList("sos", "ser", "papryka", "salami"), 2,"średnia",35));
         pizzas.add(new PizzaPepperoni(3,"Pepperoni", Arrays.asList("sos", "ser", "papryka", "salami"), 2,"duża",40));
@@ -30,7 +33,7 @@ public class PizzaMenu {
         return null;
     }
 
-    public void addPizza() {
+    public void Show() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Podaj nazwę nowej pizzy:");
@@ -55,16 +58,14 @@ public class PizzaMenu {
         pizzas.add(newPizza);
 
         System.out.println("Dodano nową pizzę do menu!");
-        System.out.println(this.toString());
+        System.out.println(this.ShowMenu());
 
         nextId++;
     }
 
-
-    @Override
-    public String toString() {
+    public String ShowMenu() {
         StringBuilder menuBuilder = new StringBuilder();
-        menuBuilder.append("Menu.Menu:\n");
+        menuBuilder.append("Menu:\n");
         for (Pizza pizza : pizzas) {
             menuBuilder.append(pizza.toString());
             menuBuilder.append("\n");

@@ -1,15 +1,12 @@
-package Menu;
+package Panel;
 
-import Pizza.PizzaMenu;
+import Interfaces.*;
 
 import java.util.Scanner;
 
-public class EmployeeMenu {
-    public void EmployeerMenu(){
+public class EmployeePanel implements IPanel {
+    public void Show(){
         Scanner s = new Scanner(System.in);
-
-        PizzaMenu pizzaMenu = new PizzaMenu();
-        Menu menu = new Menu();
 
         System.out.println("Podaj PIN: ");
         int pin = s.nextInt();
@@ -24,12 +21,12 @@ public class EmployeeMenu {
 
             switch (employeechoise){
                 case 1:
-                    pizzaMenu.addPizza();
-                    System.out.println("Dodano nową pizzę do menu!");
-                    System.out.println(pizzaMenu.toString());
-                    menu.Menu();
+                    PanelManager.getPizzaPanel().Show();
+                    PanelManager.ChangePanel(PanelManager.getDefaultPanel());
+                    break;
                 case 2:
-                    menu.Menu();
+                    PanelManager.ChangePanel(PanelManager.getDefaultPanel());
+                    break;
                 case 3:
                     break;
             }
@@ -37,7 +34,7 @@ public class EmployeeMenu {
 
         }else {
             System.out.println("Błędny pin");
-            menu.Menu();
+            PanelManager.ChangePanel(PanelManager.getDefaultPanel());
         }
 
 

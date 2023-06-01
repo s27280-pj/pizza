@@ -1,16 +1,16 @@
-package Menu;
+package Panel;
 
-import Order.DeliveryOrder;
-import Order.OnsiteOrder;
+import Order.DeliveryIOrder;
+import Order.OnsiteIOrder;
+import Interfaces.IPanel;
 
 import java.util.Scanner;
 
-public class Menu {
-    public void Menu(){
+public class DefaultPanel implements IPanel{
+    public void Show(){
 
-        DeliveryOrder deliveryOrder = new DeliveryOrder();
-        OnsiteOrder  onsiteOrder = new OnsiteOrder();
-        EmployeeMenu employeeMenu = new EmployeeMenu();
+        DeliveryIOrder deliveryOrder = new DeliveryIOrder();
+        OnsiteIOrder onsiteOrder = new OnsiteIOrder();
 
         Scanner s = new Scanner(System.in);
 
@@ -32,8 +32,10 @@ public class Menu {
                 else if (orderType == 2) {
                     deliveryOrder.MakeOrder();
                 }else System.out.println("zły wybór");
+                break;
             case 2:
-                employeeMenu.EmployeerMenu();
+                PanelManager.ChangePanel(PanelManager.getEmployeePanel());
+                break;
         }
 
     }
